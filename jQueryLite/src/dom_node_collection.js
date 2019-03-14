@@ -91,6 +91,23 @@ class DOMNodeCollection {
         });
     }
 
+    on(event, callback) {
+        this.forEach((node) => {
+            const key = `jlite - ${event}`;
+            node[key] = [];
+            node.addEventListener(event, callback);
+            node[key].push(callback);
+        });
+    }
+
+    off(event) {
+        this.forEach((node) => {
+            const key = `jlite - ${event}`;
+            node.removeEventListener(event, node[key][0]);
+        });
+    } 
+
+    
 }
 
 
